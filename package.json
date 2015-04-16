@@ -1,0 +1,27 @@
+{
+  "name": "xhr",
+  "version": "1.0.0",
+  "description": "http request in browser",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yibuyisheng/xhr.git"
+  },
+  "author": "yibuyisheng",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yibuyisheng/xhr/issues"
+  },
+  "homepage": "https://github.com/yibuyisheng/xhr",
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-babel": "^5.1.0"
+  },
+  "dependencies": {
+    "promise": "git://github.com/yibuyisheng/promise",
+    "utilities": "git://github.com/yibuyisheng/utilities"
+  }
+}
