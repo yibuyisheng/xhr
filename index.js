@@ -3,30 +3,29 @@ import { base } from 'utilities';
 
 
 function xhr(opts) {
-
     return new Promsie(function (resolve, reject, notify, cancel) {
-        this._opts = base.extend({
+        opts = base.extend({
             method: 'GET'
         }, opts);
 
-        this._xhr = new XMLHttpRequest();
+        let xhr = new XMLHttpRequest();
 
-        this._xhr.addEventListener('progress', function() {
-            notify(arguments);
-        }, false);
-        this._xhr.addEventListener("load", function() {
-            resolve(arguments);
-        }, false);
-        this._xhr.addEventListener("error", function() {
-            reject(arguments);
-        }, false);
-        this._xhr.addEventListener("abort", function() {
-            cancel(arguments);
-        }, false);
 
-        this._xhr.open(this._opts.method, this._opts.url);
-        _parseHeaders(this._opts, this._xhr);
-        this._xhr.send(this._opts.data);
+        xhr.open(opts.method, opts.url);
+        _parseHeaders(opts, xhr);
+        xhr.send(opts.data);
+
+        function _xhr1Listeners() {
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    return resolve(xhr);
+                }
+
+                if (xhr.readyState === 4 && xhr.status !== 200) {
+                    return reject(xhr);
+                }
+            };
+        }
     });
 }
 
