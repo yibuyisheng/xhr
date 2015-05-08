@@ -1,4 +1,7 @@
-import { base, eventDealer } from 'utilities';
+var utils = require('utilities');
+
+var base = utils.base;
+var eventDealer = utils.eventDealer;
 
 
 function xhr(options) {
@@ -26,4 +29,4 @@ function xhr(options) {
     return event;
 }
 
-export default xhr;
+module.exports = xhr;
