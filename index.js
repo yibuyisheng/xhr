@@ -11,13 +11,13 @@ function xhr(options) {
 
     var xhr = new XMLHttpRequest();
     var event = base.extend({}, eventDealer);
-    xhr.onerror = () => {
+    xhr.onerror = function() {
         event.trigger('error', {
             status: xhr.status,
             response: xhr.response
         });
     };
-    xhr.onload = () => {
+    xhr.onload = function() {
         event.trigger('load', {
             status: xhr.status,
             response: xhr.response
