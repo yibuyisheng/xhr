@@ -1,44 +1,28 @@
-import Promise from 'promise';
-import { base } from 'utilities';
+import { base, eventDealer } from 'utilities';
 
 
-function xhr(opts) {
-    return new Promsie(function (resolve, reject, notify, cancel) {
-        opts = base.extend({
-            method: 'GET'
-        }, opts);
+function xhr(options) {
+    options = base.extend({
+        method: 'GET'
+    }, options);
 
-        let xhr = new XMLHttpRequest();
+    var xhr = new XMLHttpRequest();
+    var event = base.extend({}, eventDealer);
+    xhr.onerror = () => {
+        event.trigger('error', {
+            status: xhr.status,
+            response: xhr.response
+        });
+    };
+    xhr.onload = () => {
+        event.trigger('load', {
+            status: xhr.status,
+            response: xhr.response
+        });
+    };
+    xhr.open(options.url);
 
-
-        xhr.open(opts.method, opts.url);
-        _parseHeaders(opts, xhr);
-        xhr.send(opts.data);
-
-        function _xhr1Listeners() {
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    return resolve(xhr);
-                }
-
-                if (xhr.readyState === 4 && xhr.status !== 200) {
-                    return reject(xhr);
-                }
-            };
-        }
-    });
+    return event;
 }
 
 export default xhr;
-
-function _parseHeaders(opts, xhr) {
-    let headerObj = opts.headers;
-
-    if (!base.isObject(headerObj)) {
-        return;
-    }
-
-    for (let k in headerObj) {
-        xhr.setRequestHeader(k, headerObj[k]);
-    }
-}

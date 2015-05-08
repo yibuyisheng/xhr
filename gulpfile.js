@@ -5,6 +5,10 @@ var babel = require('gulp-babel');
 gulp.task('compile:es6', function () {
     return gulp.src(['./index.js'])
         .pipe(babel())
+        .on('error', function(error) {
+            console.log(error);
+            this.emit('end');
+        })
         .pipe(gulp.dest('dist'));
 });
 

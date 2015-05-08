@@ -21,7 +21,6 @@
     "gulp-babel": "^5.1.0"
   },
   "dependencies": {
-    "promise": "git://github.com/yibuyisheng/promise",
     "utilities": "git://github.com/yibuyisheng/utilities"
   }
 }
