@@ -23,7 +23,7 @@ function xhr(options) {
             response: xhr.response
         });
     };
-    xhr.open(options.method, options.url, false);
+    xhr.open(options.method, options.url, true);
     xhr.send(options.body);
 
     return event;
