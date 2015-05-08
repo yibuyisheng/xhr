@@ -24,9 +24,17 @@ function xhr(options) {
         });
     };
     xhr.open(options.method, options.url, true);
+    _setHeaders(options.headers, xhr);
     xhr.send(options.body);
 
     return event;
+}
+
+function _setHeaders(headers, xhr) {
+    if (!headers) return;
+    for (var k in headers) {
+        xhr.setRequestHeader(k, headers[k]);
+    }
 }
 
 module.exports = xhr;
